@@ -21,6 +21,23 @@ namespace Codecool.BookDb.Manager
             factory = DbProviderFactories.GetFactory(provider);
         }
 
+        public void AddAuthor(Author author)
+        {
+            string john = author.BirthDate.ToString("yyyyMMdd");
+            using (var connection = factory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                var command = factory.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO BOOKS.DBO.AUTHOR " +
+                                      "(first_name, last_name, birth_date) " +
+                                      "VALUES('" + author.FirstName + "', '" + author.LastName + "', '" + author.BirthDate.ToString("yyyyMMdd") + "');";
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         public Author GetAuthorById(int id)
         {
             using (var connection = factory.CreateConnection())

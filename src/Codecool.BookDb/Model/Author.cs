@@ -23,7 +23,7 @@ namespace Codecool.BookDb.Model
 
         public void Add(Author author)
         {
-            throw new NotImplementedException();
+            new BookDbManager().AddAuthor(author);
         }
 
         public void Update(Author author)
