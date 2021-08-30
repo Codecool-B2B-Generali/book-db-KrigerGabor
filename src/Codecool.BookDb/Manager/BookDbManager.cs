@@ -21,6 +21,37 @@ namespace Codecool.BookDb.Manager
             factory = DbProviderFactories.GetFactory(provider);
         }
 
+        public Author GetAuthorById(int id)
+        {
+            using (var connection = factory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                var command = factory.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM BOOKS.DBO.AUTHOR" +
+                                      "  WHERE Id = " + id + ";";
+                using DbDataReader reader = command.ExecuteReader();
+                {
+                    reader.Read();
+                    try
+                    {
+                        return new Author
+                        {
+                            Id = (int)reader["Id"],
+                            FirstName = (string)reader["first_name"],
+                            LastName = (string)reader["last_name"],
+                            BirthDate = (DateTime)reader["birth_date"]
+                        };
+                    }
+                    catch (Exception)
+                    {
+                        throw new KeyNotFoundException();
+                    }
+                }
+            }
+        }
+
         public List<Author> GetAllAuthors()
         {
             var authors = new List<Author>();

@@ -11,12 +11,7 @@ namespace Codecool.BookDb
             Console.WriteLine("Hello World!");
 
             Author author = new Author();
-            List<Author> authors = author.GetAll();
-            foreach (var authorItem in authors)
-            {
-                Console.WriteLine(authorItem.ToString());
-            }
-
+            Console.WriteLine(author.Get(1));
         }
     }
 }

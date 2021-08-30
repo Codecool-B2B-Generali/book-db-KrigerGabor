@@ -21,12 +21,6 @@ namespace Codecool.BookDb.Model
             BirthDate = birthDate;
         }
 
-
-        public override string ToString()
-        {
-            return new string($"{Id}, {FirstName}, {LastName}, {BirthDate: MM/dd/yyyy}");
-        }
-
         public void Add(Author author)
         {
             throw new NotImplementedException();
@@ -39,13 +33,23 @@ namespace Codecool.BookDb.Model
 
         public Author Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return new BookDbManager().GetAuthorById(id);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new KeyNotFoundException();
+            }
         }
 
         public List<Author> GetAll()
         {
-            BookDbManager bookDbManager = new BookDbManager();
-            return bookDbManager.GetAllAuthors();
+            return new BookDbManager().GetAllAuthors();
+        }
+        public override string ToString()
+        {
+            return new string($"{Id}, {FirstName}, {LastName}, {BirthDate: MM/dd/yyyy}");
         }
     }
 }
