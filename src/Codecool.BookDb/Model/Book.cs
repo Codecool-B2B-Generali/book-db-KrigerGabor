@@ -34,7 +34,12 @@ namespace Codecool.BookDb.Model
 
         public Book Get(int id)
         {
-            throw new System.NotImplementedException();
+            Book book = new BookDbManager().GetBookById(id);
+            if (book == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            return book;
         }
 
         public List<Book> GetAll()

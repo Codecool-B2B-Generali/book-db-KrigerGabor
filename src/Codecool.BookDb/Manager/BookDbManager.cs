@@ -128,6 +128,11 @@ namespace Codecool.BookDb.Manager
             return authors;
         }
 
+        public Book GetBookById(int id)
+        {
+            return GetAllBooksWithAuthor().Find(x => x.Id == id);
+        }
+
         public List<Book> GetAllBooksWithAuthor()
         {
             var books = new List<Book>();

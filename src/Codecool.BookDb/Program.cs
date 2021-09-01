@@ -19,11 +19,12 @@ namespace Codecool.BookDb
             //}
 
             Book book = new Book();
-            List<Book> books = book.GetAll();
-            foreach (var item in books)
-            {
-                Console.WriteLine(item);
-            }
+            //List<Book> books = book.GetAll();
+            //foreach (var item in books)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            Console.WriteLine(book.Get(4));
         }
     }
 }
