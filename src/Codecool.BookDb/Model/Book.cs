@@ -13,6 +13,11 @@ namespace Codecool.BookDb.Model
         {
 
         }
+        public Book(Author author, string title)
+        {
+            Author = author;
+            Title = title;
+        }
 
         public Book(Author author, int id, string title)
         {
@@ -21,10 +26,9 @@ namespace Codecool.BookDb.Model
             Title = title;
         }
 
-
         public void Add(Book book)
         {
-            throw new System.NotImplementedException();
+            new BookDbManager().AddBook(book);
         }
 
         public void Update(Book book)

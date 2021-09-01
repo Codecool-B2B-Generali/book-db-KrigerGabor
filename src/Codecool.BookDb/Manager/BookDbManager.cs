@@ -34,14 +34,7 @@ namespace Codecool.BookDb.Manager
                                       "VALUES('" + author.FirstName + "', '"
                                                  + author.LastName + "', '"
                                                  + author.BirthDate.ToString("yyyyMMdd") + "');";
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception)
-                {
-                    throw new KeyNotFoundException();
-                }
+                command.ExecuteNonQuery();
             }
         }
 
@@ -126,6 +119,37 @@ namespace Codecool.BookDb.Manager
                 }
             }
             return authors;
+        }
+
+        public void AddBook(Book book)
+        {
+            using (var connection = factory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                var command = factory.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO BOOKS.DBO.AUTHOR " +
+                                      "(first_name, last_name, birth_date) " +
+                                      "VALUES('" + book.Author.FirstName + "', '"
+                                                 + book.Author.LastName + "', '"
+                                                 + book.Author.BirthDate.ToString("yyyyMMdd") + "');";
+                command.ExecuteNonQuery();
+            }
+            using (var connection = factory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                var command = factory.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = "Declare @max int; " +
+                                      "SELECT @max = coalesce(MAX(ID),0) FROM BOOKS.DBO.AUTHOR;" +  
+                                      "INSERT INTO BOOKS.DBO.BOOK " +
+                                      "(author_id, title) " +
+                                      "VALUES( @max, '"
+                                       + book.Title + "');";
+                command.ExecuteNonQuery();
+            }
         }
 
         public Book GetBookById(int id)

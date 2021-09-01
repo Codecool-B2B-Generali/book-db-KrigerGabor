@@ -17,14 +17,16 @@ namespace Codecool.BookDb
             //{
             //    Console.WriteLine(item.ToString());
             //}
+            Author author = new Author("John", "Doe", new DateTime(2000, 01, 01));
+            Book book = new Book(author, "Ipsum");
+            book.Add(book);
 
-            Book book = new Book();
-            //List<Book> books = book.GetAll();
-            //foreach (var item in books)
-            //{
-            //    Console.WriteLine(item);
-            //}
-            Console.WriteLine(book.Get(4));
+            List<Book> books = book.GetAll();
+            foreach (var item in books)
+            {
+                Console.WriteLine(item);
+            }
+            //Console.WriteLine(book.Get(4));
         }
     }
 }
