@@ -30,10 +30,7 @@ namespace Codecool.BookDb.Model
             BirthDate = birthDate;
         }
 
-        public void Add(Author author)
-        {
-            new BookDbManager().AddAuthor(author);
-        }
+        public void Add(Author author) => new BookDbManager().AddAuthor(author);
 
         public void Update(Author author)
         {

@@ -127,5 +127,39 @@ namespace Codecool.BookDb.Manager
             }
             return authors;
         }
+
+        public List<Book> GetAllBooksWithAuthor()
+        {
+            var books = new List<Book>();
+            using (var connection = factory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                var command = factory.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM BOOKS.DBO.book b " +
+                                        "INNER JOIN BOOKS.DBO.author a ON a.id = b.author_id;";
+                using (DbDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        books.Add(new Book
+                        {
+                            Id = (int)reader["id"],
+                            Author = (new Author
+                            {
+                                Id = (int)reader["author_id"],
+                                FirstName = (string)reader["first_name"],
+                                LastName = (string)reader["last_name"],
+                                BirthDate = (DateTime)reader["birth_date"]
+                            }),
+                            Title = (string)reader["title"],
+                        });
+                    }
+                }
+            }
+
+            return books;
+        }
     }
 }

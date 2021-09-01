@@ -9,17 +9,18 @@ namespace Codecool.BookDb.Model
         public Author Author { get; set; }
         public string Title { get; set; }
 
-
-        public Book(Author author, string title)
+        public Book()
         {
+
+        }
+
+        public Book(Author author, int id, string title)
+        {
+            Id = id;
             Author = author;
             Title = title;
         }
 
-        public override string ToString()
-        {
-            return new string($"{Id}, {Title}, {Author.FirstName}, {Author.LastName}");
-        }
 
         public void Add(Book book)
         {
@@ -37,8 +38,12 @@ namespace Codecool.BookDb.Model
         }
 
         public List<Book> GetAll()
-        { 
-            throw new System.NotImplementedException();
+        {
+            return new BookDbManager().GetAllBooksWithAuthor();
+        }
+        public override string ToString()
+        {
+            return new string($"{Id}, {Title}, {Author.Id}, {Author.FirstName}, {Author.LastName}");
         }
     }
 }
