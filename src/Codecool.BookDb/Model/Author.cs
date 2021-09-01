@@ -10,12 +10,21 @@ namespace Codecool.BookDb.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
+        
         public Author()
         {
         }
 
         public Author(string firstName, string lastName, DateTime birthDate)
         {
+            FirstName = firstName;
+            LastName = lastName;
+            BirthDate = birthDate;
+        }
+
+        public Author(int id, string firstName, string lastName, DateTime birthDate)
+        {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             BirthDate = birthDate;
@@ -28,7 +37,14 @@ namespace Codecool.BookDb.Model
 
         public void Update(Author author)
         {
-            throw new NotImplementedException();
+            try
+            {
+                new BookDbManager().UpdateAuthor(author);
+            }
+            catch (Exception)
+            {
+                throw new KeyNotFoundException();
+            }
         }
 
         public Author Get(int id)

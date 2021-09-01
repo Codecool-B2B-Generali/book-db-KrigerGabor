@@ -8,13 +8,15 @@ namespace Codecool.BookDb
     {
         public static void Main(string[] args)
         {
-            //Author author = new Author();
+            Author author = new Author();
+            List<Author> authors = author.GetAll();
+            //Console.WriteLine(author.Get(1));
             //author.Add(new Author("John", "Doe", new DateTime(2000,01,01)));
-            //List<Author> authors = author.GetAll();
-            //foreach (var item in authors)
-            //{
-            //Console.WriteLine(item.ToString());
-            //}
+            //author.Update(new Author(11, "John", "Doe", new DateTime(1990, 01, 01)));
+            foreach (var item in authors)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
     }
 }

@@ -23,7 +23,6 @@ namespace Codecool.BookDb.Manager
 
         public void AddAuthor(Author author)
         {
-            string john = author.BirthDate.ToString("yyyyMMdd");
             using (var connection = factory.CreateConnection())
             {
                 connection.ConnectionString = connectionString;
@@ -32,9 +31,41 @@ namespace Codecool.BookDb.Manager
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO BOOKS.DBO.AUTHOR " +
                                       "(first_name, last_name, birth_date) " +
-                                      "VALUES('" + author.FirstName + "', '" + author.LastName + "', '" + author.BirthDate.ToString("yyyyMMdd") + "');";
+                                      "VALUES('" + author.FirstName + "', '"
+                                                 + author.LastName + "', '"
+                                                 + author.BirthDate.ToString("yyyyMMdd") + "');";
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw new KeyNotFoundException();
+                }
+            }
+        }
 
-                command.ExecuteNonQuery();
+        public void UpdateAuthor(Author author)
+        {
+            using (var connection = factory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                var command = factory.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = "UPDATE BOOKS.DBO.AUTHOR" +
+                                      " SET first_name = '" + author.FirstName + "', " +
+                                            "last_name = '" + author.LastName + "', " +
+                                            "birth_date = '" + author.BirthDate.ToString("yyyyMMdd") + "' " +
+                                      " WHERE Id = " + author.Id + ";";
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw new KeyNotFoundException();
+                }
             }
         }
 
@@ -50,9 +81,10 @@ namespace Codecool.BookDb.Manager
                                       "  WHERE Id = " + id + ";";
                 using DbDataReader reader = command.ExecuteReader();
                 {
-                    reader.Read();
                     try
                     {
+                        reader.Read();
+
                         return new Author
                         {
                             Id = (int)reader["Id"],
@@ -72,7 +104,7 @@ namespace Codecool.BookDb.Manager
         public List<Author> GetAllAuthors()
         {
             var authors = new List<Author>();
-            using(var connection = factory.CreateConnection())
+            using (var connection = factory.CreateConnection())
             {
                 connection.ConnectionString = connectionString;
                 connection.Open();
