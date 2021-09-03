@@ -1,4 +1,5 @@
-﻿using Codecool.BookDb.View;
+﻿using Codecool.BookDb.Model;
+using Codecool.BookDb.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,6 +26,16 @@ namespace Codecool.BookDb.Controller
                 try
                 {
                     userChoise = ui.Choice("Type character: ");
+                    if (userChoise == 'a' || userChoise == 'A')
+                    {
+                        var authors = new Author().GetAll();
+                        foreach (var author in authors)
+                        {
+                            Console.WriteLine(author.ToString());
+                        }
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
                 }
                 catch (FormatException)
                 {
@@ -36,7 +47,7 @@ namespace Codecool.BookDb.Controller
                 }
                 
 
-            } while (userChoise != 'X');
+            } while (userChoise != 'x' || userChoise != 'X');
         }
 
     }
