@@ -33,7 +33,7 @@ namespace Codecool.BookDb.Model
 
         public void Update(Book book)
         {
-            throw new System.NotImplementedException();
+            new BookDbManager().UpdateBook(book);
         }
 
         public Book Get(int id)

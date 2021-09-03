@@ -19,7 +19,8 @@ namespace Codecool.BookDb
             //}
             Author author = new Author("John", "Doe", new DateTime(2000, 01, 01));
             Book book = new Book(author, "Ipsum");
-            book.Add(book);
+            //book.Add(book);
+            Console.WriteLine(book);
 
             List<Book> books = book.GetAll();
             foreach (var item in books)

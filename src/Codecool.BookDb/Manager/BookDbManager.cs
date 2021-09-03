@@ -123,33 +123,59 @@ namespace Codecool.BookDb.Manager
 
         public void AddBook(Book book)
         {
-            using (var connection = factory.CreateConnection())
+            // Author not exists
+            if (!book.Author.Id.HasValue)
             {
-                connection.ConnectionString = connectionString;
-                connection.Open();
-                var command = factory.CreateCommand();
-                command.Connection = connection;
-                command.CommandText = "INSERT INTO BOOKS.DBO.AUTHOR " +
-                                      "(first_name, last_name, birth_date) " +
-                                      "VALUES('" + book.Author.FirstName + "', '"
-                                                 + book.Author.LastName + "', '"
-                                                 + book.Author.BirthDate.ToString("yyyyMMdd") + "');";
-                command.ExecuteNonQuery();
+                using (var connection = factory.CreateConnection())
+                {
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+                    var command = factory.CreateCommand();
+                    command.Connection = connection;
+                    command.CommandText = "INSERT INTO BOOKS.DBO.AUTHOR " +
+                                          "(first_name, last_name, birth_date) " +
+                                          "VALUES('" + book.Author.FirstName + "', '"
+                                                     + book.Author.LastName + "', '"
+                                                     + book.Author.BirthDate.ToString("yyyyMMdd") + "');";
+                    command.ExecuteNonQuery();
+                }
+                using (var connection = factory.CreateConnection())
+                {
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+                    var command = factory.CreateCommand();
+                    command.Connection = connection;
+                    command.CommandText = "Declare @max int; " +
+                                          "SELECT @max = coalesce(MAX(ID),0) FROM BOOKS.DBO.AUTHOR;" +  
+                                          "INSERT INTO BOOKS.DBO.BOOK " +
+                                          "(author_id, title) " +
+                                          "VALUES( @max, '"
+                                           + book.Title + "');";
+                    command.ExecuteNonQuery();
+                }
             }
-            using (var connection = factory.CreateConnection())
+            // Author exists
+            else
             {
-                connection.ConnectionString = connectionString;
-                connection.Open();
-                var command = factory.CreateCommand();
-                command.Connection = connection;
-                command.CommandText = "Declare @max int; " +
-                                      "SELECT @max = coalesce(MAX(ID),0) FROM BOOKS.DBO.AUTHOR;" +  
-                                      "INSERT INTO BOOKS.DBO.BOOK " +
-                                      "(author_id, title) " +
-                                      "VALUES( @max, '"
-                                       + book.Title + "');";
-                command.ExecuteNonQuery();
+                using (var connection = factory.CreateConnection())
+                {
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+                    var command = factory.CreateCommand();
+                    command.Connection = connection;
+                    command.CommandText =
+                                          "INSERT INTO BOOKS.DBO.BOOK " +
+                                          "(author_id, title) " +
+                                          "VALUES(" + book.Author.Id + "'"
+                                           + book.Title + "');";
+                    command.ExecuteNonQuery();
+                }
             }
+        }
+
+        public void UpdateBook(Book book)
+        {
+
         }
 
         public Book GetBookById(int id)
