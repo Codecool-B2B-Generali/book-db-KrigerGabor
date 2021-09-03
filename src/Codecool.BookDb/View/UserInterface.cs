@@ -23,7 +23,18 @@ namespace Codecool.BookDb.View
         {
             // Given string options -> "abcd"
             // keep asking user for input until one of provided chars is provided
-            throw new NotImplementedException();
+            char option;
+            Console.WriteLine(options);
+            try
+            {
+                string userInput = Console.ReadLine();
+                option = char.Parse(userInput);
+            }
+            catch (FormatException)
+            {
+                throw new FormatException();
+            }
+            return option;
         }
 
         public string ReadString(string prompt, string defaultValue)

@@ -56,13 +56,8 @@ namespace Codecool.BookDb.Model
             }
         }
 
-        public List<Author> GetAll()
-        {
-            return new BookDbManager().GetAllAuthors();
-        }
-        public override string ToString()
-        {
-            return new string($"{Id}, {FirstName}, {LastName}, {BirthDate: MM/dd/yyyy}");
-        }
+        public List<Author> GetAll() => new BookDbManager().GetAllAuthors();
+
+        public override string ToString() => new string($"{Id}, {FirstName}, {LastName}, {BirthDate: MM/dd/yyyy}");
     }
 }

@@ -26,10 +26,7 @@ namespace Codecool.BookDb.Model
             Title = title;
         }
 
-        public void Add(Book book)
-        {
-            new BookDbManager().AddBook(book);
-        }
+        public void Add(Book book) => new BookDbManager().AddBook(book);
 
         public void Update(Book book)
         {
@@ -46,13 +43,8 @@ namespace Codecool.BookDb.Model
             return book;
         }
 
-        public List<Book> GetAll()
-        {
-            return new BookDbManager().GetAllBooksWithAuthor();
-        }
-        public override string ToString()
-        {
-            return new string($"{Id}, {Title}, {Author.Id}, {Author.FirstName}, {Author.LastName}");
-        }
+        public List<Book> GetAll() => new BookDbManager().GetAllBooksWithAuthor();
+
+        public override string ToString() => new string($"{Id}, {Title}, {Author.Id}, {Author.FirstName}, {Author.LastName}");
     }
 }
