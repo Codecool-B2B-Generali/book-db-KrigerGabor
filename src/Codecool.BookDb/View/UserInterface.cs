@@ -41,7 +41,7 @@ namespace Codecool.BookDb.View
         {
             // Ask user for data. If no data was provided use default value.
             // User must be informed what the default value is.
-            Console.WriteLine(prompt);
+            Console.Write(prompt);
             string userInput = Console.ReadLine();
             if (userInput != string.Empty)
             {
@@ -63,6 +63,7 @@ namespace Codecool.BookDb.View
             bool dateIsValid;
             do
             {
+                Console.Write(prompt);    
                 dateIsValid = DateTime.TryParse(Console.ReadLine(), out date);
                 if (!dateIsValid)
                 {
@@ -77,7 +78,7 @@ namespace Codecool.BookDb.View
         {
             // Ask user for a number. If no data was provided use default value.
             // User must be informed what the default value is.
-            Console.WriteLine(prompt);
+            Console.Write(prompt);
             try
             {
                 return int.Parse(Console.ReadLine());
