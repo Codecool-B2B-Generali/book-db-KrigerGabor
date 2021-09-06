@@ -104,6 +104,18 @@ namespace Codecool.BookDb.Controller
                 Console.ReadKey();
                 Console.Clear();
             }
+            else if (userChoise == 'f' || userChoise == 'F')
+            {
+                var idx = ui.ReadInt("Type index number: ", 0);
+                try
+                {
+                    Console.WriteLine(new Book().Get(idx));
+                }
+                catch (KeyNotFoundException)
+                {
+                    Console.WriteLine("Key not exists! Try another key.");
+                }
+            }
         }
 
         private void PrintMainMenuOptions()
