@@ -41,7 +41,17 @@ namespace Codecool.BookDb.View
         {
             // Ask user for data. If no data was provided use default value.
             // User must be informed what the default value is.
-            throw new NotImplementedException();
+            Console.WriteLine(prompt);
+            string userInput = Console.ReadLine();
+            if (userInput != string.Empty)
+            {
+                return userInput;
+            }
+            else
+            {
+                Console.WriteLine($"Input is empty, program will use default data, '{defaultValue}'");
+                return defaultValue;
+            }
         }
 
         public DateTime ReadDate(string prompt, DateTime defaultValue)
@@ -49,7 +59,18 @@ namespace Codecool.BookDb.View
             // Ask user for a date. If no data was provided use default value.
             // User must be informed what the default value is.
             // If provided date is in invalid format, ask user again.
-            throw new NotImplementedException();
+            DateTime date;
+            bool dateIsValid;
+            do
+            {
+                dateIsValid = DateTime.TryParse(Console.ReadLine(), out date);
+                if (dateIsValid)
+                {
+                    Console.WriteLine($"Date is not valid! Use this format {default}");
+                    Console.WriteLine("Try again...");
+                }
+            } while (dateIsValid);
+            return date;
         }
         
         public int ReadInt(string prompt, int defaultValue)

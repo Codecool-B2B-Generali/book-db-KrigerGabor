@@ -64,6 +64,17 @@ namespace Codecool.BookDb.Controller
                     Console.WriteLine("Key not exists! Try another key.");
                 }
             }
+            else if (userChoise == 'c' || userChoise == 'C')
+            {
+                var firstName = ui.ReadString("Type author first name: ", "exp: 'George'");
+                var lastName = ui.ReadString("Type author last name: ", "exp: 'R. R. Martin'");
+                var date = ui.ReadDate("Type author birth date :", new DateTime(1990,01,01));
+                var author = new Author(firstName, lastName, date);
+                author.Add(author);
+                Console.WriteLine("New author add to database...");
+                Console.ReadKey();
+                Console.Clear();
+            }
             else if (userChoise == 'e' || userChoise == 'E')
             {
                 var books = new Book().GetAll();
