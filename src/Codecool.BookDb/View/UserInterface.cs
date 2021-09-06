@@ -56,7 +56,15 @@ namespace Codecool.BookDb.View
         {
             // Ask user for a number. If no data was provided use default value.
             // User must be informed what the default value is.
-            throw new NotImplementedException();
+            Console.WriteLine(prompt);
+            try
+            {
+                return int.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
         }
     }
 }

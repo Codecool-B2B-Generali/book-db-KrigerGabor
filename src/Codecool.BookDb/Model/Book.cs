@@ -11,8 +11,8 @@ namespace Codecool.BookDb.Model
 
         public Book()
         {
-
         }
+
         public Book(Author author, string title)
         {
             Author = author;
