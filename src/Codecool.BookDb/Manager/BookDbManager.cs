@@ -175,8 +175,24 @@ namespace Codecool.BookDb.Manager
 
         public void UpdateBook(Book book)
         {
-            //TODO
-            throw new NotImplementedException();
+            using (var connection = factory.CreateConnection())
+            {
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                var command = factory.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = "UPDATE BOOKS.DBO.BOOK " +
+                                      " SET title = '" + book.Title + "' " +
+                                      "WHERE Id = " + book.Id + ";";
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw new KeyNotFoundException();
+                }
+            }
         }
 
         public Book GetBookById(int id)

@@ -164,7 +164,21 @@ namespace Codecool.BookDb.Controller
             }
             else if (userChoise == 'h' || userChoise == 'H')
             {
-                // TODO
+                var idx = ui.ReadInt("Type index number: ", 0);
+                try
+                {
+                    var title = ui.ReadString("Type book title: ", "exp: 'Dune'");
+                    Book book = new Book(idx, title);
+                    book.Update(book);
+
+                    Console.WriteLine("Book update to database...");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                catch (KeyNotFoundException)
+                {
+                    Console.WriteLine("Key not exists! Try another key.");
+                }
             }
         }
 
