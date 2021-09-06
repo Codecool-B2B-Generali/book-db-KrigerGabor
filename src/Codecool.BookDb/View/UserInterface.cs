@@ -64,12 +64,12 @@ namespace Codecool.BookDb.View
             do
             {
                 dateIsValid = DateTime.TryParse(Console.ReadLine(), out date);
-                if (dateIsValid)
+                if (!dateIsValid)
                 {
                     Console.WriteLine($"Date is not valid! Use this format {default}");
                     Console.WriteLine("Try again...");
                 }
-            } while (dateIsValid);
+            } while (!dateIsValid);
             return date;
         }
         
