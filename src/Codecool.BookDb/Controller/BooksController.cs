@@ -8,7 +8,7 @@ namespace Codecool.BookDb.Controller
 {
     public class BooksController
     {
-        private UserInterface ui;
+        private readonly UserInterface ui;
 
         public BooksController()
         {
@@ -47,7 +47,7 @@ namespace Codecool.BookDb.Controller
                 }
                 
 
-            } while (userChoise != 'x' || userChoise != 'X');
+            } while ( !(userChoise == 'x' || userChoise == 'X'));
         }
 
     }

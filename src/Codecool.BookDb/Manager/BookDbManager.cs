@@ -175,7 +175,8 @@ namespace Codecool.BookDb.Manager
 
         public void UpdateBook(Book book)
         {
-
+            //TODO
+            throw new NotImplementedException();
         }
 
         public Book GetBookById(int id)
