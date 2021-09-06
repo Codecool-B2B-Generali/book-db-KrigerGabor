@@ -166,8 +166,8 @@ namespace Codecool.BookDb.Manager
                     command.CommandText =
                                           "INSERT INTO BOOKS.DBO.BOOK " +
                                           "(author_id, title) " +
-                                          "VALUES(" + book.Author.Id + "'"
-                                           + book.Title + "');";
+                                          "VALUES(" + book.Author.Id + ", '"
+                                                    + book.Title + "');";
                     command.ExecuteNonQuery();
                 }
             }

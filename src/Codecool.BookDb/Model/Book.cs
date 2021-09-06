@@ -19,7 +19,7 @@ namespace Codecool.BookDb.Model
             Title = title;
         }
 
-        public Book(Author author, int id, string title)
+        public Book(int id, Author author, string title)
         {
             Id = id;
             Author = author;

@@ -116,6 +116,56 @@ namespace Codecool.BookDb.Controller
                     Console.WriteLine("Key not exists! Try another key.");
                 }
             }
+            else if (userChoise == 'g' || userChoise == 'G')
+            {
+                var newAuthor = ui.Choice("New author? Y/N: ");
+                do
+                {
+                    if (newAuthor == 'y' || newAuthor == 'Y') // New author
+                    {
+                        var firstName = ui.ReadString("Type author first name: ", "exp: 'George'");
+                        var lastName = ui.ReadString("Type author last name: ", "exp: 'R. R. Martin'");
+                        var date = ui.ReadDate("Type author birth date :", new DateTime(1990, 01, 01));
+                        
+                        var title = ui.ReadString("Type book title : ", "exp: 'Dune'");
+
+                        Book newBook = new Book
+                        {
+                            Author = new Author
+                            {
+                                FirstName = firstName,
+                                LastName = lastName,
+                                BirthDate = date
+                            },
+                            Title = title
+                        };
+                        newBook.Add(newBook);
+                    }
+
+                    if (newAuthor == 'n' || newAuthor == 'N') // Exists author
+                    {
+                        var idx = ui.ReadInt("Type index number: ", 0);
+                        try
+                        {
+                            Author author = new Author().Get(idx);
+
+                            var title = ui.ReadString("Type book title : ", "exp: 'Dune'");
+
+                            Book newBook = new Book(author, title);
+                            newBook.Add(newBook);
+                        }
+                        catch (KeyNotFoundException)
+                        {
+                            Console.WriteLine("Key not exists! Try another key.");
+                        }
+                    }
+
+                } while (!(newAuthor == 'y' || newAuthor == 'Y' || newAuthor == 'n' || newAuthor == 'N'));
+            }
+            else if (userChoise == 'h' || userChoise == 'H')
+            {
+                // TODO
+            }
         }
 
         private void PrintMainMenuOptions()
@@ -126,8 +176,8 @@ namespace Codecool.BookDb.Controller
             ui.PrintOption('D', "Update author by id");
             ui.PrintOption('E', "Show all authors and books");
             ui.PrintOption('F', "Show author and book by book id");
-            ui.PrintOption('F', "Create a new book (and author)");
-            ui.PrintOption('F', "Update book by id");
+            ui.PrintOption('G', "Create a new book (and author)");
+            ui.PrintOption('H', "Update book by id");
             ui.PrintOption('X', "exit");
         }
     }
