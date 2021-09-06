@@ -75,6 +75,25 @@ namespace Codecool.BookDb.Controller
                 Console.ReadKey();
                 Console.Clear();
             }
+            else if (userChoise == 'd' || userChoise == 'D')
+            {
+                var idx = ui.ReadInt("Type index number: ", 0);
+                try
+                {
+                    var firstName = ui.ReadString("Type author first name: ", "exp: 'George'");
+                    var lastName = ui.ReadString("Type author last name: ", "exp: 'R. R. Martin'");
+                    var date = ui.ReadDate("Type author birth date :", new DateTime(1990, 01, 01));
+                    var author = new Author(idx, firstName, lastName, date);
+                    author.Update(author);
+                    Console.WriteLine("author update to database...");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                catch (KeyNotFoundException)
+                {
+                    Console.WriteLine("Key not exists! Try another key.");
+                }
+            }
             else if (userChoise == 'e' || userChoise == 'E')
             {
                 var books = new Book().GetAll();
